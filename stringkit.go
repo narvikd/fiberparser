@@ -4,8 +4,8 @@ import (
 	"strings"
 )
 
-// After returns a substring after a string. Or empty if it can't find it.
-func After(str string, subStrAfter string) string {
+// stringkitAfter returns a substring after a string. Or empty if it can't find it.
+func stringkitAfter(str string, subStrAfter string) string {
 	pos := strings.LastIndex(str, subStrAfter)
 	if pos == -1 {
 		return ""
@@ -17,8 +17,8 @@ func After(str string, subStrAfter string) string {
 	return str[adjustedPos:]
 }
 
-// Between returns a substring between two strings. Or empty if it can't find it.
-func Between(str string, subStrBefore string, subStrAfter string) string {
+// stringkitBetween returns a substring between two strings. Or empty if it can't find it.
+func stringkitBetween(str string, subStrBefore string, subStrAfter string) string {
 	posFirst := strings.Index(str, subStrBefore)
 	if posFirst == -1 {
 		return ""

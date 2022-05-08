@@ -42,10 +42,10 @@ func ParseBody(fiberCtx *fiber.Ctx, s interface{}) error {
 }
 
 func getUnmarshalKeyAndRequiredType(str string) (string, string) {
-	key := Between(str, "go struct field ", " of type")
-	requiredType := After(str, "of type ")
+	key := stringkitBetween(str, "go struct field ", " of type")
+	requiredType := stringkitAfter(str, "of type ")
 	if strings.Contains(key, ".") {
-		key = After(key, ".")
+		key = stringkitAfter(key, ".")
 	}
 	return key, requiredType
 }
