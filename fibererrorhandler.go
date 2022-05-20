@@ -3,6 +3,7 @@ package fiberparser
 import (
 	"github.com/gofiber/fiber/v2"
 	"log"
+	"net/http"
 )
 
 // RegisterErrorHandler registers a new Fiber Error Handler. It needs to be used with the Panic MW
@@ -17,14 +18,19 @@ import (
 // (More info on: https://docs.gofiber.io/api/middleware/recover and https://docs.gofiber.io/guide/error-handling)
 //
 func RegisterErrorHandler(ctx *fiber.Ctx, err error) error {
-	const clientErrMsg = "500 Internal Server Error"
 	// Default 500 statuscode
 	code := fiber.StatusInternalServerError
+	clientErrMsg := "500 Internal Server Error"
 
 	if e, ok := err.(*fiber.Error); ok {
 		// Override status code if fiber.Error type
 		code = e.Code
+		switch e.Code {
+		case http.StatusNotFound:
+			clientErrMsg = "404 Not Found"
+		}
 	}
+
 	// Set Content-Type: text/plain; charset=utf-8
 	ctx.Set(fiber.HeaderContentType, fiber.MIMETextPlainCharsetUTF8)
 
